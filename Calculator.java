@@ -2,46 +2,49 @@ package org.example.Homework.HW10;
 
 import java.util.List;
 
+// Основной класс калькулятора
 public class Calculator {
-    public static int sum(List<Integer> numbers) {
-        int sum = 0;
-        for (int number : numbers) {
-            sum += number;
-        }
-        return sum;
+    private List<Integer> numbers;
+
+    public Calculator(List<Integer> numbers) {
+        this.numbers = numbers;
     }
 
-    public static int multiply(List<Integer> numbers) {
-        int product = 1;
-        for (int number : numbers) {
-            product *= number;
-        }
-        return product;
+    // Метод для получения суммы чисел
+    public int sum() {
+        return MathOperations.sum(numbers);
     }
 
-    public static double divide(double dividend, double divisor) {
-        if (divisor == 0) {
-            throw new ArithmeticException("Ошибка деления на 0.");
-        }
-        return dividend / divisor;
+    // Метод для получения произведения чисел
+    public int multiply() {
+        return MathOperations.multiply(numbers);
     }
 
-    public static String binaryConversion(int number) {
-        return Integer.toBinaryString(number);
+    // Метод для деления двух чисел
+    public double divide(double dividend, double divisor) {
+        return MathOperations.divide(dividend, divisor);
+    }
+
+    // Метод для преобразования числа в двоичное представление
+    public String binaryConversion(int number) {
+        return BinaryConverter.toBinary(number);
     }
 
     public static void main(String[] args) {
         List<Integer> numbers = List.of(1, 2, 3, 4, 5);
-        System.out.println("Сумма: " + sum(numbers));
+        Calculator calculator = new Calculator(numbers);
+
+        System.out.println("Sum: " + calculator.sum());
 
         List<Integer> numbersToMultiply = List.of(2, 3, 4);
-        System.out.println("Умножение: " + multiply(numbersToMultiply));
+        calculator = new Calculator(numbersToMultiply);
+        System.out.println("Product: " + calculator.multiply());
 
         double dividend = 10.0;
         double divisor = 3.0;
-        System.out.println("Деление: " + divide(dividend, divisor));
+        System.out.println("Division: " + calculator.divide(dividend, divisor));
 
         int numberToConvert = 10;
-        System.out.println("Бинарный перевод: " + binaryConversion(numberToConvert));
+        System.out.println("Binary conversion: " + calculator.binaryConversion(numberToConvert));
     }
 }
